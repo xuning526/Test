@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+-->
+<!DOCTYPE project [
+<!ENTITY torque-nav SYSTEM "../../torque-nav-inc.xml">
+<!ENTITY project-nav SYSTEM "../../project-nav-inc.xml">
+]>
+
+<project name="Torque" href="http://db.apache.org/torque/">
+
+  <title>Torque</title>
+
+  <body>
+
+	&torque-nav;
+	
+    <menu name="Module Documentation">
+      <item name="Overview"              href="../../../documentation/index.html"/>
+      <item name="Torque 3.3"            href="../../../documentation/torque-3.3.html">
+        <item name="Generator"           href="../generator/index.html" collapse="true">
+          <item name="dummy"/>
+        </item>
+        <item name="Maven 1 Plugin"      href="../maven-plugin/index.html" collapse="true">
+          <item name="dummy"/>
+        </item>
+        <item name="Maven 2 Plugin"      href="../maven2-plugin/index.html" target="_blank"/>
+        <item name="Runtime"             href="/index.html" collapse="true">
+          <item name="Reference"         href="/reference/index.html" collapse="true">
+            <item name="Initialisation"  href="/reference/initialisation-configuration.html"/>
+            <item name="Reading from the DB" href="/reference/read-from-db.html"/>
+            <item name="Writing to the DB" href="/reference/write-to-db.html"/>
+            <item name="Extending classes" href="/reference/extend-classes.html"/>
+            <item name="Connections"     href="/reference/connections-transactions.html"/>
+            <item name="Managers and Cache" href="/reference/managers-cache.html"/>
+            <item name="Beans"           href="/reference/beans.html"/>
+            <item name="Relevant classes" href="/reference/relevant-classes.html"/>
+            <item name="Supporting a new DB" href="/reference/new-database-support.html"/>
+          </item>
+          <item name="Dependencies"      href="/dependencies.html"/>
+          <item name="Project Reports"   href="/maven-reports.html" collapse="true">
+            <item name="Metrics"         href="/jdepend-report.html"/>
+            <item name="Checkstyle"      href="/checkstyle-report.html"/>
+            <item name="Change Log"      href="/changelog-report.html"/>
+            <item name="File Activity"   href="/file-activity-report.html"/>
+            <item name="Developer Activity" href="/developer-activity-report.html"/>
+            <item name="JavaDocs"        href="/apidocs/index.html" target="_blank" />
+            <item name="JavaDoc Report"  href="/javadoc.html"/>
+            <item name="JavaDoc Warnings Report" href="/javadoc-warnings-report.html"/>
+            <item name="Source Xref"     href="/xref/index.html" target="_blank" />
+            <item name="Test Xref"       href="/xref-test/index.html" target="_blank" />
+            <item name="Unit Tests"      href="/junit-report.html"/>
+            <item name="Project License" href="/license.html"/>
+            <item name="Task List"       href="/task-list.html"/>
+            <item name="PMD Report"      href="/pmd-report.html"/>
+            <item name="Simian Report"   href="/simian-report.html"/>
+            <item name="JCoverage"       href="/jcoverage/index.html" target="_blank"/>
+            <item name="FindBugs Report" href="/findbugs-report.html"/>
+            <item name="Link Check Report" href="/linkcheck.html"/>
+          </item>
+        </item>
+        <item name="Tutorial"            href="../tutorial/index.html" collapse="true">
+          <item name="dummy"/>
+        </item>
+        <item name="Village"             href="../village/index.html" collapse="true">
+          <item name="dummy"/>
+        </item>
+      </item>
+      <item name="Previous releases"     href="../../../documentation/previous-releases.html" collapse="true">
+        <item name="dummy"/>
+     </item>
+    </menu>
+
+    &project-nav;
+
+  </body>
+</project>
