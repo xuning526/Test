@@ -335,21 +335,5 @@
         <get dest="${download.lib.dir}/junit.jar"
             usetimestamp="true" ignoreerrors="true"
             src="http://www.ibiblio.org/maven/junit/jars/junit-3.8.1.jar"/>
-    </target>
-      
+    </target>    
 </project>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
