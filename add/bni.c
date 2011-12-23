@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+/* add a new line for test */
 #define high(array) ((int) ((sizeof(array) / sizeof(array[0])) - 1))
 
 /*@observer@*/ static const char program_name[] = "bni";

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+// add a new line for test
 package org.apache.solr.handler;
 
 import java.io.*;

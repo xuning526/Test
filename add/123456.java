@@ -16,7 +16,7 @@ package org.apache.solr.analysis;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+// add a new line for test
 import java.io.Reader;
 import java.io.StringReader;
 

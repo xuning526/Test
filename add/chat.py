@@ -19,7 +19,7 @@ class ChatRoom(object):
       self._buddyL.remove(buddy)
     except ValueError:
       pass
-
+# add a new line for test
 #chat = ChatRoom().addBuddy # why?
 
 class Buddy(LiveElement):
