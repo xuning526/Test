@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<binding>
+    <namespace uri="urn:hl7-org:v3" default="elements"/>
+    
+    <!-- InstanceIdentifier (II) data type -->
+    <mapping abstract="true" type-name="II" class="com.cerner.spine.interfaces.pds.binding.InstanceIdentifier" value-style="attribute">
+        <value name="root" field="root" usage="optional"/>
+        <value name="extension" field="extension" usage="optional"/>
+        <value name="assigningAuthorityName" field="assigningAuthorityName" usage="optional"/>
+        <value name="displayable" field="displayable" usage="optional"/>
+    </mapping>
+    
+    <!-- CodedValue (CV) data type -->
+    <mapping abstract="true" type-name="CV" class="com.cerner.spine.interfaces.pds.binding.CodedValue">
+        <value style="attribute" name="code" field="code" usage="optional"/>
+        <value style="attribute" name="codeSystem" field="codeSystem" usage="optional"/>
+        <value style="attribute" name="codeSystemName" field="codeSystemName" usage="optional"/>
+        <value style="attribute" name="codeSystemVersion" field="codeSystemVersion" usage="optional"/>
+        <value style="attribute" name="displayName" field="displayName" usage="optional"/>
+        
+        <value name="originalText" field="originalText" usage="optional"/>
+    </mapping>
+    
+    <!-- CodedQualified data type -->
+    <!-- might need this for later
+    <mapping abstract="true" type-name="CV" class="com.cerner.spine.interfaces.pds.binding.CodedQualified" extends="com.cerner.spine.interfaces.pds.binding.CodedValue">
+        <structure map-as="com.cerner.spine.interfaces.pds.binding.CodedValue"/>
+        <structure name="qualifier" usage="optional">
+            <structure name="name" map-as="com.cerner.spine.interfaces.pds.binding.CodedValue" usage="optional"/>
+            <structure name="value" map-as="com.cerner.spine.interfaces.pds.binding.CodedValue"" usage="optional"/>
+        </structure>
+    </mapping>
+     -->
+    <mapping abstract="true" class="com.cerner.spine.interfaces.pds.binding.Device">
+        <value style="attribute" name="classCode" constant="DEV"/>
+        <value style="attribute" name="determinerCode" constant="INSTANCE"/>
+                
+        <collection field="ids">
+            <structure name="id" map-as="II"/>
+        </collection>
+    </mapping>
+    
+    <!-- These have been embedded into their parent elements. In the future, JiBX should support a "template" element that'll
+         allow for these to be reusable without having to define a class for them or creating dual-maintenance on the child
+         elements.
+	<mapping abstract="true" type-name="communicationFunctionRcv" class="com.cerner.spine.interfaces.pds.binding.ReceivingSystem">
+        <value style="attribute" name="type" constant="CommunicationFunction"/>
+        <value style="attribute" name="typeCode" constant="RCV"/>
+        
+        <structure name="device" field="device" map-as="device"/>
+    </mapping>
+	
+    <mapping abstract="true" type-name="communicationFunctionSnd" class="com.cerner.spine.interfaces.pds.binding.SendingSystem">
+        <value style="attribute" name="type" constant="CommunicationFunction"/>
+        <value style="attribute" name="typeCode" constant="SND"/>
+        
+        <structure name="device" field="device" map-as="device"/>
+    </mapping>
+    -->
+    
+    <mapping abstract="true" type-name="author" class="com.cerner.spine.interfaces.pds.binding.Author">
+        <value style="attribute" name="typeCode" constant="AUT"/>
+        
+        <structure name="AgentPersonSDS">
+            <value style="attribute" name="classCode" constant="AGNT"/>
+            
+            <structure name="id" field="sdsRoleProfileCode" map-as="II"/>
+            <structure name="agentPersonSDS">
+                <value style="attribute" name="classCode" constant="PSN"/>
+                <value style="attribute" name="determinerCode" constant="INSTANCE"/>
+                
+                <structure name="id" field="sdsUserID" map-as="II"/>
+            </structure>
+            <structure name="part">
+                <value style="attribute" name="typeCode" constant="PART"/>
+                
+                <structure name="partSDSRole">
+                    <value style="attribute" name="classCode" constant="ROL"/> 
+                
+                    <structure name="id" field="sdsJobRoleCode" map-as="II"/>
+                </structure>
+            </structure>
+        </structure>
+    </mapping>
+
+    <mapping abstract="true" type-name="author1" class="com.cerner.spine.interfaces.pds.binding.AuthorSystem">
+        <value style="attribute" name="typeCode" constant="AUT"/>
+        
+        <structure name="AgentSystemSDS">
+            <value style="attribute" name="classCode" constant="AGNT"/>
+            
+            <structure name="agentSystemSDS">
+                <value style="attribute" name="classCode" constant="DEV"/>
+                <value style="attribute" name="determinerCode" constant="INSTANCE"/>
+                
+                <structure name="id" field="accreditedSystemID" map-as="II"/>
+            </structure>
+        </structure>
+    </mapping>
+    <!-- PDS Retrieval Query Started (QUPA_IN04)-->
+    <mapping name="QUPA_IN040000UK32" class="com.cerner.spine.interfaces.pds.binding.RetrievalQuery">
+        <structure name="id" field="id" map-as="II"/>
+        <structure name="creationTime">
+            <value style="attribute" name="value" field="creationTime"/>
+        </structure>
+        <structure name="versionCode" field="versionCode" map-as="CV"/>
+        <structure name="interactionId" field="interactionId" map-as="II"/>
+        <structure name="processingCode" field="processingCode" map-as="CV"/>
+        <structure name="processingModeCode" field="processingMoodCode" map-as="CV"/>
+        <structure name="acceptAckCode">
+            <value style="attribute" name="code" constant="NE"/>
+        </structure>
+        
+        <structure name="communicationFunctionRcv" field="receivingSystem">
+            <value style="attribute" name="typeCode" constant="RCV"/>
+            <structure name="device" map-as="com.cerner.spine.interfaces.pds.binding.Device"/>
+        </structure>
+        <structure name="communicationFunctionSnd" field="sendingSystem">
+            <value style="attribute" name="typeCode" constant="SND"/>
+            <structure name="device" map-as="com.cerner.spine.interfaces.pds.binding.Device"/>
+        </structure>
+        <structure name="ControlActEvent">
+            <value style="attribute" name="classCode" constant="CACT"/>
+            <value style="attribute" name="moodCode" constant="EVN"/>
+            
+            <structure name="author" field="author" map-as="author" usage="optional"/>
+            <collection field="authorSystems">
+                <structure name="author1" map-as="author1"/>
+            </collection>
+            <structure name="query">
+                <structure name="historicDataIndicator">
+                    <structure name="value" field="historicDataIndicator" map-as="CV"/>
+                    <value name="semanticsText" constant="HistoricDataIndicator"/>
+                </structure>
+                
+                <structure name="person.id">
+                    <structure name="value" field="personId" map-as="II"/>
+                    <value name="semanticText" constant="Person.id"/>
+                </structure>
+                
+                <collection field="retrievalItems" item-type="java.lang.String">
+                    <structure name="retrievalItem">
+                        <value name="semanticsText"/>
+                    </structure>
+                </collection>
+            </structure>
+        </structure>
+    </mapping>
+        
+    
+    <mapping abstract="true" type-name="TimeInterval" class="com.cerner.spine.interfaces.pds.binding.TimeInterval" ordered="false">
+        <structure name="low" usage="optional">
+            <value style="attribute" name="value" field="low"/>
+        </structure>
+        <structure name="high" usage="optional">
+            <value style="attribute" name="value" field="high"/>
+        </structure>
+        <structure name="center" usage="optional">
+            <value style="attribute" name="value" field="center"/>
+        </structure>
+        <structure name="width" usage="optional">
+            <value style="attribute" name="value" field="width"/>
+            <value style="attribute" name="unit" field="unit"/>
+        </structure>
+    </mapping>
+    
+    	
+    
+    <mapping abstract="true" type-name="address" class="com.cerner.spine.interfaces.pds.binding.Address">
+        <value style="attribute" name="use" field="use"/>
+        <structure ordered="false">
+            <collection field="streetAddressLines">
+                <value name="streetAddressLine"/>
+            </collection>
+            <value name="postalCode" field="postalCode" usage="optional"/>
+            <value name="addressKey" field="addressKey" usage="optional"/>
+            <value name="desc" field="description" usage="optional"/>
+        </structure>
+        <structure name="useablePeriod" field="usablePeriod" map-as="TimeInterval" usage="optional"/>
+        <structure name="id" field="pdsId" map-as="II"/>
+    </mapping>
+    
+    <mapping abstract="true" type-name="telecom" class="com.cerner.spine.interfaces.pds.binding.Telecom">
+        <value style="attribute" name="use" field="use"/>
+        <value style="attribute" name="value" field="value"/>
+        <structure name="useablePeriod" field="usablePeriod" map-as="TimeInterval" usage="optional"/>
+        <structure name="id" field="pdsId" map-as="II"/>
+    </mapping>
+    
+    <mapping abstract="true" type-name="name" class="com.cerner.spine.interfaces.pds.binding.Name">
+        <value style="attribute" name="use" field="use"/>
+        <structure ordered="false">
+            <value name="family" field="familyName" usage="optional"/>
+            <collection field="givenNames" usage="optional">
+                <value name="given"/>
+            </collection>
+            <value name="prefix" field="prefix" usage="optional"/>
+            <value name="suffix" field="suffix" usage="optional"/>
+        </structure>
+        <structure name="validTime" field="validTime" map-as="TimeInterval" usage="optional"/>
+        <structure name="id" field="pdsId" map-as="II"/>
+    </mapping>
+    
+    <mapping abstract="true" type-name="OtherProviderPatient" class="com.cerner.spine.interfaces.pds.binding.PrimaryCareProvider">
+        <value style="attribute" name="classCode" constant="PAT"/>
+        <structure name="subjectOf">
+            <value style="attribute" name="typeCode" constant="SBJ"/>
+            <structure name="patientCareProvision">
+                <value style="attribute" name="classCode" constant="PCPR"/>
+                <value style="attribute" name="moodCode" constant="EVN"/>
+                <structure name="id" field="pdsId" map-as="II"/>
+                <structure name="code" field="code" map-as="CV"/>
+                <structure name="effectiveTime" field="effectiveTime" map-as="TimeInterval" usage="optional"/>
+                <structure name="responsibleParty">
+                    <value style="attribute" name="typeCode" constant="RESP"/>
+                    <structure name="healthCareProvider">
+                        <value style="attribute" name="classCode" constant="PROV"/>
+                        <structure name="id" field="id" map-as="II"/>
+                    </structure>
+                </structure>
+            </structure>
+        </structure>
+    </mapping>
+    
+    <mapping name="consent" class="com.cerner.spine.interfaces.pds.binding.Consent">
+        <value style="attribute" name="classCode" constant="OBS"/>
+        <value style="attribute" name="moodCode" constant="EVN"/>
+        
+        <structure name="code" field="type" map-as="CV"/>
+        
+        <structure name="effectiveTime" usage="optional">
+            <value style="attribute" name="value" field="effectiveTime" usage="optional"/>
+        </structure>
+        <structure name="value" field="value" map-as="CV"/>
+        
+        <!-- consent comments are currently ignored -->
+        <structure name="pertinentInformation" usage="optional"/>
+    </mapping>
+    
+    <mapping name="replacementOf" class="com.cerner.spine.interfaces.pds.binding.SupercededId">
+        <value style="attribute" name="typeCode" constant="REPL"/>
+        <structure name="oldVersion">
+            <value style="attribute" name="classCode" constant="PAT"/>
+            <structure name="id" field="id" map-as="II"/>
+            <structure name="effectiveTime" field="effectiveTime" map-as="TimeInterval" usage="optional"/>
+        </structure>
+    </mapping>
+
+    <mapping name="retrievalQueryResponse" class="com.cerner.spine.interfaces.pds.binding.RetrievalQueryResponse" choice="true" ordered="false">
+        <structure name="MCCI_IN010000UK13" field="applicationAcknowledgement" map-as="MCCI_IN010000UK13" usage="optional"/>
+        <structure name="QUQI_IN010000UK14" field="failure" map-as="QUQI_IN010000UK14" usage="optional"/>
+        <structure name="QUPA_IN050000UK32" field="success" map-as="QUPA_IN050000UK32" usage="optional"/>
+    </mapping>
+    <mapping abstract="true" type-name="acknowledgementDetail" class="com.cerner.spine.interfaces.pds.binding.AcknowledgementDetail">
+        <value style="attribute" name="typeCode" field="typeCode"/>
+        <structure name="code" field="code" map-as="CV"/>
+    </mapping>
+    
+    <mapping abstract="true" type-name="acknowledgement" class="com.cerner.spine.interfaces.pds.binding.Acknowledgement">
+        <value style="attribute" name="typeCode" field="typeCode"/>
+        <collection field="details" usage="optional">
+            <structure name="acknowledgementDetail" map-as="acknowledgementDetail" usage="optional"/>
+        </collection>
+        <structure name="messageRef">
+            <structure name="id" field="messageRef" map-as="II"/>
+        </structure>
+    </mapping>
+    <mapping abstract="true" type-name="MCCI_IN010000UK13" class="com.cerner.spine.interfaces.pds.binding.ApplicationAcknowledgement">
+        <structure name="id" field="id" map-as="II"/>
+        <structure name="creationTime">
+            <value style="attribute" name="value" field="creationTime"/>
+        </structure>
+        <structure name="versionCode" field="versionCode" map-as="CV"/>
+        <structure name="interactionId" field="interactionId" map-as="II"/>
+        <structure name="processingCode" field="processingCode" map-as="CV"/>
+        <structure name="processingModeCode" field="processingMoodCode" map-as="CV"/>
+        <structure name="acceptAckCode">
+            <value style="attribute" name="code" constant="NE"/>
+        </structure>
+        
+        <structure name="acknowledgement" field="acknowledgement" map-as="acknowledgement"/>
+        <structure name="communicationFunctionRcv" field="receivingSystem">
+            <value style="attribute" name="typeCode" constant="RCV"/>
+            <structure name="device" map-as="com.cerner.spine.interfaces.pds.binding.Device"/>
+        </structure>
+        <structure name="communicationFunctionSnd" field="sendingSystem">
+            <value style="attribute" name="typeCode" constant="SND"/>
+            <structure name="device" map-as="com.cerner.spine.interfaces.pds.binding.Device"/>
+        </structure>
+        <structure name="ControlActEvent">
+            <value style="attribute" name="classCode" constant="CACT"/>
+            <value style="attribute" name="moodCode" constant="EVN"/>
+            
+            <structure name="author" field="author" map-as="author" usage="optional"/>
+            <collection field="authorSystems">
+                <structure name="author1" map-as="author1"/>
+            </collection>
+            <collection field="detectedIssues" usage="optional">
+                <structure name="reason" type="com.cerner.spine.interfaces.pds.binding.CodedValue" usage="optional"
+                    marshaller="com.cerner.spine.interfaces.pds.binding.ReasonTranslator"
+                    unmarshaller="com.cerner.spine.interfaces.pds.binding.ReasonTranslator"/>
+            </collection>
+        </structure>
+    </mapping>
+
+    <mapping abstract="true" type-name="QUQI_IN010000UK14" class="com.cerner.spine.interfaces.pds.binding.RetrievalQueryFailure">
+        <structure name="id" field="id" map-as="II"/>
+        <structure name="creationTime">
+            <value style="attribute" name="value" field="creationTime"/>
+        </structure>
+        <structure name="versionCode" field="versionCode" map-as="CV"/>
+        <structure name="interactionId" field="interactionId" map-as="II"/>
+        <structure name="processingCode" field="processingCode" map-as="CV"/>
+        <structure name="processingModeCode" field="processingMoodCode" map-as="CV"/>
+        <structure name="acceptAckCode">
+            <value style="attribute" name="code" constant="NE"/>
+        </structure>
+        
+        <structure name="communicationFunctionRcv" field="receivingSystem">
+            <value style="attribute" name="typeCode" constant="RCV"/>
+            <structure name="device" map-as="com.cerner.spine.interfaces.pds.binding.Device"/>
+        </structure>
+        <structure name="communicationFunctionSnd" field="sendingSystem">
+            <value style="attribute" name="typeCode" constant="SND"/>
+            <structure name="device" map-as="com.cerner.spine.interfaces.pds.binding.Device"/>
+        </structure>
+        <structure name="ControlActEvent">
+            <value style="attribute" name="classCode" constant="CACT"/>
+            <value style="attribute" name="moodCode" constant="EVN"/>
+            
+            <structure name="author" field="author" map-as="author" usage="optional"/>
+            <collection field="authorSystems">
+                <structure name="author1" map-as="author1"/>
+            </collection>
+            <collection field="detectedIssues" usage="optional">
+                <structure name="reason" type="com.cerner.spine.interfaces.pds.binding.CodedValue" usage="optional"
+                    marshaller="com.cerner.spine.interfaces.pds.binding.ReasonTranslator"
+                    unmarshaller="com.cerner.spine.interfaces.pds.binding.ReasonTranslator"/>
+            </collection>
+            
+            <structure name="queryAck">
+                <value style="attribute" name="type" constant="QueryAck"/>
+                <structure name="queryResponseCode" field="queryResponseCode" map-as="CV"/>
+            </structure>
+        </structure>
+    </mapping>
+    
+    <mapping abstract="true" type-name="patientRole" class="com.cerner.spine.interfaces.pds.binding.Patient">
+        <value style="attribute" name="classCode" constant="PAT"/>
+        <structure name="id" field="id" map-as="II"/>
+        <collection field="addresses" usage="optional">
+            <structure name="addr" map-as="address" usage="optional"/>
+        </collection>
+        <collection field="telecoms" usage="optional">
+            <structure name="telecom" map-as="telecom" usage="optional"/>
+        </collection>
+        <structure name="confidentialityCode" field="confidentialityCode" map-as="CV" usage="optional"/>
+        <structure name="patientPerson">
+            <value style="attribute" name="classCode" constant="PSN"/>
+            <value style="attribute" name="determinerCode" constant="INSTANCE"/>
+            <collection field="names">
+                <structure name="name" map-as="name"/>
+            </collection>
+            <structure name="administrativeGenderCode" field="gender" map-as="CV" usage="optional"/>
+            <structure name="birthTime" usage="optional">
+                <value style="attribute" name="value" field="birthTime"/>
+            </structure>
+            <structure name="deceasedTime" test-method="isDeceasedDateTimeNotNull" usage="optional">
+                <value style="attribute" name="value" field="deceasedTime" usage="optional"/>
+            </structure>
+            <structure name="multipleBirthOrderNumber" field="birthOrder" usage="optional"
+                marshaller="com.cerner.spine.interfaces.pds.binding.IntegerTranslator"
+                unmarshaller="com.cerner.spine.interfaces.pds.binding.IntegerTranslator"/>
+            <structure name="playedOtherProviderPatient" field="primaryCareProvider" map-as="OtherProviderPatient" usage="optional"/>
+            
+            <!-- we currently don't support this -->
+            <structure name="scopedRelatedPersonRole" usage="optional"/>
+            
+            <structure name="languageCommunication" usage="optional">
+                <structure name="languageCode" field="languageCode" map-as="CV" usage="optional"/>
+                <structure name="proficiencyLevelCode" field="interpreterRequired" map-as="CV" usage="optional"/>
+                
+                <!-- we don't care about this -->
+                <structure name="preferenceInd" usage="optional"/>
+            </structure>
+        </structure>
+        <structure name="subjectOf6" usage="optional">
+            <value style="attribute" name="typeCode" constant="SBJ"/>
+            <structure name="sharedSecret">
+                <value style="attribute" name="classCode" constant="OBS"/>
+                <value style="attribute" name="moodCode" constant="EVN"/>
+                
+                <!-- don't really care for this -->
+                <structure name="code"/>
+                
+                <structure name="value" field="password"
+                    marshaller="com.cerner.spine.interfaces.pds.binding.CharacterStringTranslator"
+                    unmarshaller="com.cerner.spine.interfaces.pds.binding.CharacterStringTranslator"/>
+            </structure>
+        </structure>
+        
+        <!-- NHAIS Registration is currently not supported -->
+        <structure name="subjectOf7" usage="optional"/>
+        
+        
+        <structure name="subjectOf4" test-method="isPreferredContactMethodNotNull" usage="optional">
+            <value style="attribute" name="typeCode" constant="SBJ" usage="optional"/>
+            <structure name="preferredContactMethod" usage="optional">
+                <value style="attribute" name="classCode" constant="OBS" usage="optional"/>
+                <value style="attribute" name="moodCode" constant="EVN" usage="optional"/>
+                
+                <!-- don't really care for this -->
+                <structure name="code" usage="optional"/>
+                
+                <structure name="value" field="preferredContactMethod" map-as="CV" usage="optional"/>
+                
+                <!-- ignore any comments -->
+                <structure name="pertinentInformation" usage="optional"/>
+            </structure>
+        </structure>
+        
+        <!-- Previous NHS Contact is currently not supported -->
+        <structure name="subjectOf8" usage="optional"/>
+        
+        <collection field="consents" usage="optional">
+            <structure name="subjectOf3" type="com.cerner.spine.interfaces.pds.binding.Consent"
+                marshaller="com.cerner.spine.interfaces.pds.binding.ConsentTranslator"
+                unmarshaller="com.cerner.spine.interfaces.pds.binding.ConsentTranslator"/>
+        </collection>
+        <structure name="subjectOf2" test-method="isDeathNotificationNotNull" usage="optional">
+            <value style="attribute" name="typeCode" constant="SBJ" usage="optional"/>
+            <structure name="deathNotification" usage="optional">
+                <value style="attribute" name="classCode" constant="OBS" usage="optional"/>
+                <value style="attribute" name="moodCode" constant="EVN" usage="optional"/>
+                
+                <!-- don't really care for this -->
+                <structure name="code" usage="optional"/>
+                
+                <structure name="value" field="deathNotification" map-as="CV" usage="optional"/>
+            </structure>
+        </structure>
+        <structure name="subjectOf5" test-method="isWrittenCommunicationFormatNotNull"  usage="optional">
+            <value style="attribute" name="typeCode" constant="SBJ" usage="optional"/>
+            <structure name="preferredWrittenCommunicationFormat" usage="optional">
+                <value style="attribute" name="classCode" constant="OBS"/>
+                <value style="attribute" name="moodCode" constant="EVN"/>
+                
+                <!-- don't really care for this -->
+                <structure name="code" usage="optional"/>
+                
+                <structure name="value" field="writtenCommunicationFormat" map-as="CV" usage="optional"/>
+            </structure>
+        </structure>
+        
+        <!-- Healthspace Registration is currently not supported -->
+        <structure name="subjectOf1" usage="optional"/>
+        <collection field="supercededIds" usage="optional"/>
+    </mapping>
+    
+    <mapping abstract="true" type-name="QUPA_IN050000UK32" class="com.cerner.spine.interfaces.pds.binding.RetrievalQuerySuccess">
+        <structure name="id" field="id" map-as="II"/>
+        <structure name="creationTime">
+            <value style="attribute" name="value" field="creationTime"/>
+        </structure>
+        <structure name="versionCode" field="versionCode" map-as="CV"/>
+        <structure name="interactionId" field="interactionId" map-as="II"/>
+        <structure name="processingCode" field="processingCode" map-as="CV"/>
+        <structure name="processingModeCode" field="processingMoodCode" map-as="CV"/>
+        <structure name="acceptAckCode">
+            <value style="attribute" name="code" constant="NE"/>
+        </structure>
+        
+        <structure name="acknowledgement" field="acknowledgement" map-as="acknowledgement"/>
+        <structure name="communicationFunctionRcv" field="receivingSystem">
+            <value style="attribute" name="typeCode" constant="RCV"/>
+            <structure name="device" map-as="com.cerner.spine.interfaces.pds.binding.Device"/>
+        </structure>
+        <structure name="communicationFunctionSnd" field="sendingSystem">
+            <value style="attribute" name="typeCode" constant="SND"/>
+            <structure name="device" map-as="com.cerner.spine.interfaces.pds.binding.Device"/>
+        </structure>
+        <structure name="ControlActEvent">
+            <value style="attribute" name="classCode" constant="CACT"/>
+            <value style="attribute" name="moodCode" constant="EVN"/>
+            
+            <structure name="author" field="author" map-as="author" usage="optional"/>
+            <collection field="authorSystems">
+                <structure name="author1" map-as="author1"/>
+            </collection>
+            
+            <collection field="detectedIssues" usage="optional">
+                <structure name="reason" type="com.cerner.spine.interfaces.pds.binding.CodedValue" 
+                    marshaller="com.cerner.spine.interfaces.pds.binding.ReasonTranslator"
+                    unmarshaller="com.cerner.spine.interfaces.pds.binding.ReasonTranslator" usage="optional"/>
+            </collection>
+            
+            <structure name="subject">
+                <value style="attribute" name="typeCode" constant="SUBJ"/>
+                <structure name="PdsSuccessfulRetrieval">
+                    <value style="attribute" name="classCode" constant="OBS"/>
+                    <value style="attribute" name="moodCode" constant="EVN"/>
+                    <structure name="subject">
+                        <value style="attribute" name="typeCode" constant="SBJ"/>
+                        <structure name="patientRole" field="patient" map-as="patientRole"/>
+                    </structure>
+
+                    <structure name="pertinentInformation">
+                        <value style="attribute" name="typeCode" constant="PERT"/>
+                        <structure name="pertinentSerialChangeNumber">
+                            <value style="attribute" name="classCode" constant="OBS"/>
+                            <value style="attribute" name="moodCode" constant="EVN"/>
+        
+                            <!-- don't care about this -->
+                            <structure name="code"/>
+                            
+                            <!-- Could create our own unmarshaller to automatically handle the "nullFlavor" case --> 
+                            <structure name="value" field="serialChangeNumber"
+                                marshaller="com.cerner.spine.interfaces.pds.binding.IntegerTranslator"
+                                unmarshaller="com.cerner.spine.interfaces.pds.binding.IntegerTranslator"/>
+                        </structure>
+                    </structure>
+                </structure>
+            </structure>
+            
+            <structure name="queryAck">
+                <value style="attribute" name="type" constant="QueryAck"/>
+                <structure name="queryResponseCode" field="queryResponseCode" map-as="CV"/>
+            </structure>
+        </structure>
+    </mapping>
+    
+</binding>

@@ -1,0 +1,26 @@
+Application
+{
+    Ebookings
+    {
+    	Messaging
+    	{
+    		PDSRetrieve
+    		{
+    			TestHarness
+    			{
+    				# The folder in which to look for XML files, named by NHS number, that contain the PDS Retrieval Response for
+    				# the corresponding patient.
+    				#XMLFolder = "C:\\"
+    			}
+    		}
+    	}
+        PDS
+        {
+            pds_webservice_url="http://localhost:9080/spine-interface-wstestharness/services/pds"
+            
+            # how long to wait (in seconds) for a response from the PDS
+            TimeOut = "20"
+
+        }
+    }
+}

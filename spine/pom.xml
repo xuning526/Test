@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<packaging>jar</packaging>
+	<groupId>com.cerner.cab.spine</groupId>
+	<artifactId>spine-interface-mim</artifactId>
+	<name>spine-interface-mim</name>
+	<version>1.0-SNAPSHOT</version>
+	<inceptionYear>2008</inceptionYear>
+	<description>MIM v4.2 Resources and Implementation</description>
+	<url>http://repo.cab2.cerner.corp/site/${project.groupId}/${project.name}/${project.version}</url>
+	<organization>
+		<name>Cerner Corporation</name>
+		<url>http://www.cerner.com</url>
+	</organization>
+	<!--  Information about CAB's SCM Server  -->
+	<scm>
+		<url>http://scm.cab2.cerner.corp/svn/trunk/${project.name}/</url>
+		<connection>scm:svn:http://scm.cab2.cerner.corp/svn/trunk/${project.name}</connection>
+	</scm>
+	<!--  CAB Developers  -->
+	<developers>
+		<developer>
+			<name>Sean Parmelee</name>
+			<id>sp010915</id>
+			<email>sean.parmelee@cerner.com</email>
+			<organization>Cerner Corporation</organization>
+			<organizationUrl>http://www.cerner.com</organizationUrl>
+			<roles>
+				<role>Software Architect</role>
+			</roles>
+		</developer>
+	</developers>
+	<!--
+		Repositories contain the dependencies upon which this project requires
+		for
+	-->
+	<!--  various scopes (compile, test, runtime, etc.).  -->
+	<repositories>
+		<repository>
+			<id>cerner-cab-snapshot</id>
+			<name>Cerner CAB Snapshot Maven Repository</name>
+			<url>http://repo.cab2.cerner.corp/repos/snapshot</url>
+		</repository>
+		<repository>
+			<id>cerner-cab-external</id>
+			<name>Cerner CAB External Maven Repository</name>
+			<url>http://repo.cab2.cerner.corp/repos/external</url>
+		</repository>
+		<repository>
+			<id>external</id>
+			<name>Application Architecture Release Repository</name>
+			<url>http://repo.apparch.cerner.corp/external/repo</url>
+		</repository>
+		<repository>
+			<id>release</id>
+			<name>Application Architecture Release Repository</name>
+			<url>http://repo.release.cerner.corp/main/repo</url>
+		</repository>
+	</repositories>
+	<!--
+		Dependencies are the artifacts upon which this project depends to run.
+	-->
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-jibx</artifactId>
+			<version>1.5</version>
+			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.jibx</groupId>
+					<artifactId>jibx-bind</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-kernel</artifactId>
+			<version>1.5</version>
+			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>servlet-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.cerner.cab.common</groupId>
+			<artifactId>cab-util</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.cerner.cab.data</groupId>
+			<artifactId>cab-fsi-polling</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.cerner.cab.domain</groupId>
+			<artifactId>domain-patient</artifactId>
+			<version>1.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.j2ee</groupId>
+			<artifactId>j2ee</artifactId>
+			<version>1.4</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jibx</groupId>
+			<artifactId>jibx-extras</artifactId>
+			<version>1.2.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jibx</groupId>
+			<artifactId>jibx-run</artifactId>
+			<version>1.2.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.cerner.cab.domain</groupId>
+			<artifactId>domain-common</artifactId>
+			<version>1.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.cerner.cab.infrastructure</groupId>
+			<artifactId>dao-rim-based</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>		
+        <dependency>
+			<groupId>com.cerner.cab.infrastructure</groupId>
+			<artifactId>model-rim-based</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.cerner.cab.infrastructure</groupId>
+			<artifactId>model-rim-based</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+	    <dependency>
+            <groupId>com.cerner.cab.common</groupId>
+            <artifactId>common-bindings</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.cerner.cab.common</groupId>
+            <artifactId>common-injector</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+		<!--  test dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.5</version>
+			<scope>test</scope>
+		</dependency>
+        <dependency>
+            <groupId>com.cerner.cab.infrastructure</groupId>
+            <artifactId>testingframework</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.cerner.cab.system.registry</groupId>
+            <artifactId>system-registry-lithium</artifactId>
+            <version>2.1-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.cerner.system.instrument</groupId>
+            <artifactId>system-instrument-logging-log4j</artifactId>
+            <version>2.2</version>
+            <scope>test</scope>
+        </dependency>
+		<dependency>
+            <groupId>com.cerner.cab.service</groupId>
+            <artifactId>service-patient</artifactId>
+            <version>1.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.cerner.cab.infrastructure</groupId>
+            <artifactId>service-security-legacy</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+		</dependency>   
+        <dependency>
+            <groupId>com.cerner.cab.domain</groupId>
+            <artifactId>domain-organization</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency> 
+        <dependency>
+			<groupId>com.cerner.cab.domain</groupId>
+			<artifactId>domain-organization-cowpens</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+            <groupId>com.cerner.cab.domain</groupId>
+            <artifactId>domain-patient-json-gson</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>runtime</scope>
+        </dependency>
+       <dependency>
+            <groupId>com.cerner.cab.domain</groupId>
+            <artifactId>domain-patient-pds</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+	</dependencies>
+
+	<build>
+		<!--
+			Plugins are bound to a phase in the build life cycle, stated or
+			implied. They generally have
+		-->
+		<!--
+			'goals' which can be thought of as features of the plugin. Each
+			conform to a standardized
+		-->
+		<!--
+			configuration/execution layout, with specific configuration data
+			described in the plugin's site
+		-->
+		<!--  documentation. -->
+		<plugins>
+			<!--  Compile against Java 1.5 compiler. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+						<phase>compile</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<optimize>true</optimize>
+					<showDeprecation>true</showDeprecation>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<!--  Configuring Clover, which generates unit-testing reports. -->
+			<plugin>
+				<artifactId>maven-clover-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<phase>pre-site</phase>
+						<goals>
+							<goal>instrument</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<jdk>1.5</jdk>
+					<licenseLocation>http://scm.apparch.cerner.corp/svn/apparch/licenses/clover.license</licenseLocation>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.5.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.jibx</groupId>
+				<artifactId>maven-jibx-plugin</artifactId>
+				<version>1.2.1</version>
+				<configuration>
+					<directory>src/main/resources</directory>
+					<includes>
+						<include>binding.xml</include>
+					</includes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>bind</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<!--
+		Reporting is specific to the documentation that will be maintained on
+		the site for
+	-->
+	<!--
+		this project, which Maven auto-generates and deploys during the
+		'deploy' phase.
+	-->
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changelog-plugin</artifactId>
+			</plugin>
+			<!--  A Clover link and its reports. -->
+			<plugin>
+				<artifactId>maven-clover-plugin</artifactId>
+				<configuration>
+					<jdk>1.5</jdk>
+					<licenseLocation>
+						http://scm.apparch.cerner.corp/svn/apparch/licenses/clover.license
+					</licenseLocation>
+				</configuration>
+			</plugin>
+			<!--
+				JXR connects the various reports (PMD, Clover, etc) to the source
+				files.
+			-->
+			<plugin>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<configuration>
+					<inputEncoding>UTF-8</inputEncoding>
+					<outputEncoding>UTF-8</outputEncoding>
+				</configuration>
+			</plugin>
+			<!--  A Javadoc link and the generated code documentation. -->
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<charset>UTF-8</charset>
+					<docencoding>UTF-8</docencoding>
+					<docfilessubdirs>true</docfilessubdirs>
+					<links>
+						<link>http://java.sun.com/j2se/1.5.0/docs/api/</link>
+					</links>
+					<source>1.5</source>
+					<show>protected</show>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+	<!--
+		Distribution mgmt is where Maven looks to when it runs the 'deploy'
+		phase, to guide
+	-->
+	<!--
+		it to remote locations to write project endstates and site
+		documentation.
+	-->
+	<distributionManagement>
+		<repository>
+			<id>cerner-cab-release</id>
+			<name>Cerner CAB Release Maven Repository</name>
+			<url>dav:http://repo.cab2.cerner.corp/repos/release</url>
+			<uniqueVersion>false</uniqueVersion>
+		</repository>
+		<snapshotRepository>
+			<id>cerner-cab-snapshot</id>
+			<name>Cerner CAB Snapshot Maven Repository</name>
+			<url>dav:http://repo.cab2.cerner.corp/repos/snapshot</url>
+			<uniqueVersion>false</uniqueVersion>
+		</snapshotRepository>
+		<site>
+			<id>cerner-cab-site</id>
+			<name>Cerner CAB Maven Site</name>
+			<url>dav:http://repo.cab2.cerner.corp/site/${project.groupId}/${project.name}/${project.version}</url>
+		</site>
+	</distributionManagement>
+</project>

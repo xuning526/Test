@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Author: Joseph Waller, Central Design Team                    -->
+<!-- NASP Version: 1.2.4        -->
+<!-- -->
+<!--  History: -->
+<!--   16-APR-2004 Remove legacy 'Sequence' element-->
+<!--   05-MAY-2004 1.2.0	Change reference to QUPA_IN030000UK01to QUPA_IN030000UK02-->
+<!--	13-DEC-2004 	1.2.1	Change reference to QUPA_IN030000UK12to QUPA_IN030000UK14 and QUQI_IN010000UK12 to QUQI_IN010000UK14-->
+<!--    17-DEC-2004 1.2.2	Added MMCI_IN010000 response to options-->
+<!--    01-Jul-2005 	1.2.3	Updated to use MIM 3.1.10 interactions; QUPA_IN030000UK15 -->
+<!--    20-Oct-2005 	1.2.4	Create for MIM4.1 interactions -->
+<!--    05-May-2006 1.2.5	Create for MIM4.1.02 interactions -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:hl7="urn:hl7-org:v3" xmlns="urn:hl7-org:v3" targetNamespace="urn:hl7-org:v3" elementFormDefault="qualified">
+	<xs:include schemaLocation="QUQI_IN010000UK14.xsd"/>
+	<xs:include schemaLocation="QUPA_IN030000UK32.xsd"/>
+	<xs:include schemaLocation="MCCI_IN010000UK13.xsd"/>
+	<xs:element name="traceQueryResponse" type="traceQueryResponseType_01"/>
+	<xs:complexType name="traceQueryResponseType_01">
+		<xs:choice>
+			<xs:element ref="QUQI_IN010000UK14"/>
+			<xs:element ref="QUPA_IN030000UK32"/>
+			<xs:element ref="MCCI_IN010000UK13"/>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

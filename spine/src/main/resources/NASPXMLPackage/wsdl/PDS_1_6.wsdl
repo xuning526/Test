@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 sp1 U (http://www.xmlspy.com) by Robert Stanger (BT Syntegra) -->
+<!-- Complies with MIM PDS vs 2.6 -->
+<!-- Author: Joseph Waller, Ian Ibbotson Central Design Team                    -->
+<!-- NASP Version: 1.5.4        -->
+<!-- -->
+<!--  History: -->
+<!--    19-JAN-2004 				Initial Draft -->
+<!--    20-JAN-2004 				Merge Confirm NHS and SimpleTrace -->
+<!--    20-JAN-2004 				Version with flat schema (no includes) for TMS testing team -->
+<!--    22-Jan-2004 					II: Merged Jo's pdsRetreival op -->
+<!--    09-Feb-2004 					II: Changed service name -->
+<!--    17-Feb-2004 					II: NEW Schemas! Experience of how the schemas have changed leads me to think that we need to insulate these operations from the external schema definitions. -->
+<!--    03-Mar-2004 					II: Introduction of new header element. -->
+<!--	 12-Mar-2004 					bug fix to WSDL. Significant changes to attached schema. -->
+<!--    14-Apr-2004 					bug fix to WSDL. Correct message ConfirmNHSStarted to use QUPA_IN060000UK01 rather than QUPA_IN070000UK01-->
+<!--    16-Apr-2004 					bug fix to WSDL. Correct message parts in combined 'response' messages to refer to types rather than elements-->
+<!--    1-Sep-2004 					Update to new MIM messages-->
+<!--    29-Sep-2004 				Resposes now wrapped in nasp response wrapper-->
+<!--    12-Dec-2004 				Updates to MIM 3.1.08 e.g. changed QUPA_IN010000UK12 to QUPA_IN010000UK13-->
+<!--    17-Dec-2004 	1.5.3	Update soap:address to pds_1_5-->
+<!--    30-Sept-2005 	1.5.4	Update soap actions -->
+<!-- -->
+<definitions xmlns:hl7="urn:hl7-org:v3" xmlns:voc="urn:hl7-org:v3/voc" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:ns="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" targetNamespace="urn:hl7-org:v3" name="hl7">
+	<types>
+		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:hl7-org:v3" xmlns:tns="urn:hl7-org:v3">
+			<!-- -->
+			<!--PDS Trace Query Started -->
+			<xsd:include schemaLocation="../Schemas/QUPA_IN010000UK13.xsd"/>
+			<!-- Response schema including both Query Act Failed - QUQI_IN010000UKxx.xsd - and PDS Trace Query Successful - QUPA_IN030000UKxx.xsd -->
+			<xsd:include schemaLocation="../Schemas/naspTraceQueryResponse_1_2.xsd"/>
+			<!-- -->
+			<!-- PDS Retrieval Query Started - QUPA_IN040000UK01 -->
+			<xsd:include schemaLocation="../Schemas/QUPA_IN040000UK14.xsd"/>
+			<!-- Response schema including both Query Act Failed - QUQI_IN010000UKxx.xsd - and PDS Retrieval Query Successful - QUPA_IN050000UKxx.xsd -->
+			<xsd:include schemaLocation="../Schemas/naspRetrievalQueryResponse_1_2.xsd"/>
+			<!-- -->
+			<!-- PDS Confirm NHS Number Query Started -->
+			<xsd:include schemaLocation="../Schemas/QUPA_IN060000UK13.xsd"/>
+			<!-- Response schema including both Query Act Failed - QUQI_IN010000UKxx.xsd - and PDS NHS Number Confirmed  - QUPA_IN070000UKxx.xsd -->
+			<xsd:include schemaLocation="../Schemas/naspConfirmNHSResponse_1_2.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="TraceQueryStarted">
+		<part name="body" element="hl7:QUPA_IN010000UK13"/>
+	</message>
+	<message name="TraceQueryResponse">
+		<part name="body" element="hl7:traceQueryResponse"/>
+	</message>
+	<message name="RetrievalQueryStarted">
+		<part name="body" element="hl7:QUPA_IN040000UK14"/>
+	</message>
+	<message name="RetrievalQueryResponse">
+		<part name="body" element="hl7:retrievalQueryResponse"/>
+	</message>
+	<message name="ConfirmNHSStarted">
+		<part name="body" element="hl7:QUPA_IN060000UK13"/>
+	</message>
+	<message name="ConfirmNHSResponse">
+		<part name="body" element="hl7:confirmNHSResponse"/>
+	</message>
+	<portType name="PDS_PortType">
+		<operation name="TraceQuery">
+			<input message="hl7:TraceQueryStarted"/>
+			<output message="hl7:TraceQueryResponse"/>
+		</operation>
+		<operation name="RetrievalQuery">
+			<input message="hl7:RetrievalQueryStarted"/>
+			<output message="hl7:RetrievalQueryResponse"/>
+		</operation>
+		<operation name="ConfirmNHSNumber">
+			<input message="hl7:ConfirmNHSStarted"/>
+			<output message="hl7:ConfirmNHSResponse"/>
+		</operation>
+	</portType>
+	<binding name="PDS_Binding" type="hl7:PDS_PortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="TraceQuery">
+			<soap:operation soapAction="urn:nhs:names:services:pdsquery/QUPA_IN010000UK13" style="document"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="RetrievalQuery">
+			<soap:operation soapAction="urn:nhs:names:services:pdsquery/QUPA_IN040000UK14" style="document"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ConfirmNHSNumber">
+			<soap:operation soapAction="urn:nhs:names:services:pdsquery/QUPA_IN060000UK13" style="document"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="pds">
+		<documentation>A pds service tracing patient records</documentation>
+		<port name="pdsPort" binding="hl7:PDS_Binding">
+			<soap:address location="https://synch.nis1.national.ncrs.nhs.uk/syncservice-pds/pds_1_5"/>
+			<!-- note that the service address can vary between enviroments and change prior to live. The address given is only a sample -->
+		</port>
+	</service>
+</definitions>
